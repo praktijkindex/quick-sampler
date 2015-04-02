@@ -31,6 +31,15 @@ module Quick
         feed { samplers.sample.next }
       end
 
+      def list_of sampler, non_empty: false
+        lower_bound = non_empty ? 1 : 0
+        feed { sampler.take(rand(lower_bound..upper_bound)) }
+      end
+
+      def vector_of length, sampler
+        feed { sampler.take(length).force }
+      end
+
       private
 
       def build_sampler callable
