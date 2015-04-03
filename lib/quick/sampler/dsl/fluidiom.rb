@@ -1,9 +1,9 @@
 require "delegate"
-require_relative "config"
+require_relative "../config"
 
 module Quick
   module Sampler
-    class ComposableSampler < SimpleDelegator
+    class Fluidiom < SimpleDelegator
       include Quick::Sampler::Config
 
       def initialize sampler, _config = {}
@@ -12,15 +12,15 @@ module Quick
       end
 
       def unwrap
-        __getobj__.take(max_iterations)
+        __getobj__
       end
 
       def spawn sampler
-        ComposableSampler.new(sampler, config)
+        self.class.new(sampler, config)
       end
 
       def such_that &predicate
-        spawn(unwrap.select(&predicate))
+        spawn(unwrap.take(max_iterations).select(&predicate))
       end
 
     end

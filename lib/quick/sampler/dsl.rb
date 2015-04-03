@@ -1,5 +1,5 @@
 require_relative "config"
-require_relative "composable_sampler"
+require_relative "dsl/fluidiom"
 require_relative "dsl/one_of_weighted"
 require_relative "dsl/numeric"
 require_relative "dsl/boolean"
@@ -10,8 +10,12 @@ module Quick
     class DSL
       include Quick::Sampler::Config
 
+      def self.compile &block
+        new.instance_eval(&block).unwrap
+      end
+
       def feed &block
-        ComposableSampler.new(build_sampler(block), config)
+        Fluidiom.new(build_sampler(block), config)
       end
 
       def const const

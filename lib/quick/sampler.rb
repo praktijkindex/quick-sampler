@@ -1,10 +1,8 @@
 require_relative "sampler/version"
-require_relative "sampler/dsl"
+require_relative "sampler/compile"
 
-# TODO is this a good API?
 module Quick
-  def self.sampler(&block)
-    Sampler::DSL.new.instance_eval(&block).unwrap
+  module Sampler
   end
 end
 
