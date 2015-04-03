@@ -18,6 +18,7 @@ module Quick
       def feed &block
         Fluidiom.new(Base.new(block), config)
       end
+
     end
   end
 end

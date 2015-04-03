@@ -39,7 +39,16 @@ module Quick
       end
 
       def list_like *args
-        feed { args.dup }
+        feed {
+          args.map { |x|
+            case x
+            when Quick::Sampler
+              x.next
+            else
+              x
+            end
+          }
+        }
       end
 
     end
