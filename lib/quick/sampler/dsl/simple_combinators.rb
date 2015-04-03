@@ -40,15 +40,21 @@ module Quick
 
       def list_like *args
         feed {
-          args.map { |x|
-            case x
-            when Quick::Sampler
-              x.next
-            else
-              x
-            end
-          }
+          args.map { |arg| recursive_sample(arg) }
         }
+      end
+
+      private
+
+      def recursive_sample value
+        case value
+        when Quick::Sampler
+          value.next
+        when Hash
+          value.map{ |key, value| [key, recursive_sample(value)] }.to_h
+        else
+          value
+        end
       end
 
     end
