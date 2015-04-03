@@ -3,10 +3,12 @@ require_relative "../config"
 
 module Quick
   module Sampler
+    # This is SimpleDelegator because we want to be able to unwrap the "original" sampler
     class Fluidiom < SimpleDelegator
       include Quick::Sampler::Config
 
       def initialize sampler, _config = {}
+        sampler = Base.new(sampler) unless sampler.is_a? Base
         super(sampler)
         config.merge! _config
       end

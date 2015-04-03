@@ -11,8 +11,10 @@ module Quick
     class DSL
       include Quick::Sampler::Config
 
-      def self.compile &block
-        new.instance_eval(&block).unwrap
+      def self.compile description: nil, &block
+        new.instance_eval(&block).unwrap.tap do |sampler|
+          sampler.description = description
+        end
       end
 
       def feed &block
