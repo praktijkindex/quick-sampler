@@ -1,17 +1,18 @@
 describe Quick::Sampler::DSL do
   it { is_expected.to have_method :list_like }
+  let(:dsl) { subject }
 
   describe "#list_like" do
-    subject(:sampled_lists) {
-      Quick::Sampler::DSL.new.list_like(*args).first(5)
+    let(:sampled_lists) {
+      dsl.list_like(*args).first(5)
     }
-    let(:positive_integer) { Quick::Sampler::DSL.new.positive_integer }
-    let(:negative_integer) { Quick::Sampler::DSL.new.negative_integer }
+    let(:positive_integer) { dsl.positive_integer }
+    let(:negative_integer) { dsl.negative_integer }
 
     context "given no arguments" do
       let(:args) { [] }
       it "repeats empty lists" do
-        expect(sampled_lists).to all be_empty
+        expect(sampled_lists).to all match []
       end
     end
 
