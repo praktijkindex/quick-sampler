@@ -1,4 +1,5 @@
 require_relative "config"
+require_relative "base"
 require_relative "dsl/fluidiom"
 require_relative "dsl/one_of_weighted"
 require_relative "dsl/numeric"
@@ -15,7 +16,7 @@ module Quick
       end
 
       def feed &block
-        Fluidiom.new(build_sampler(block), config)
+        Fluidiom.new(Base.new(block), config)
       end
 
       def const const
@@ -46,14 +47,6 @@ module Quick
 
       private
 
-      def build_sampler callable
-        Enumerator.new do |recipient|
-          loop do
-            recipient << callable.call
-          end
-        end.lazy
-      end
     end
-
   end
 end
