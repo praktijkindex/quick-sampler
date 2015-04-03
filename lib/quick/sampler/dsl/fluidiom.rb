@@ -1,10 +1,9 @@
 require "delegate"
-require_relative "../config"
 
 module Quick
   module Sampler
-    # This is SimpleDelegator because we want to be able to unwrap the "original" sampler
-    class Fluidiom < SimpleDelegator
+    # SimpleDelegator so that it can unwrap the "original" sampler with #__getobj__
+    class DSL::Fluidiom < SimpleDelegator
       include Quick::Sampler::Config
 
       def initialize sampler, _config = {}
@@ -24,8 +23,6 @@ module Quick
       def such_that &predicate
         spawn(unwrap.take(max_iterations).select(&predicate))
       end
-
     end
-
   end
 end

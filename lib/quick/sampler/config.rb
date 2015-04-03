@@ -1,5 +1,6 @@
 require "active_support/configurable"
 require "active_support/concern"
+
 module Quick
   module Sampler
     module Config

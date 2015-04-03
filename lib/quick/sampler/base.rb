@@ -1,5 +1,4 @@
 require "delegate"
-require_relative "../shrink"
 
 module Quick
   module Sampler
@@ -16,7 +15,7 @@ module Quick
       end
 
       def shrink samples, &block
-        Quick::Shrink.while(samples, &block)
+        Quick::Sampler::Shrink.while(samples, &block)
       end
 
       private
