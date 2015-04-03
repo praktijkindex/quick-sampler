@@ -52,6 +52,8 @@ module Quick
           value.next
         when Hash
           value.map{ |key, value| [key, recursive_sample(value)] }.to_h
+        when Array
+          value.map{ |value| recursive_sample(value) }
         else
           value
         end
