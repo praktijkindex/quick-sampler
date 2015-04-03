@@ -25,7 +25,7 @@ module Quick
         feed {
           dice = rand * total_weight
           weight_class = expressions.keys.find{|w| dice < w}
-          recursive_sampl(expressions[weight_class])
+          recursive_sample(expressions[weight_class])
         }
       end
 
