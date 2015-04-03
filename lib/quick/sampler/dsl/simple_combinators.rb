@@ -39,7 +39,7 @@ module Quick
       end
 
       def list_like *args
-        feed {}
+        feed { args.dup }
       end
 
     end
