@@ -7,7 +7,19 @@ module Quick
 
     class << self
 
-      # Main entry point of Quick Sampler. Compiles a definition into a sampler.
+      # Main entry point of Quick Sampler. Compiles a definition into a sampler. The
+      # "compilation" is only a metaphor, as definition - which is given to `copmile` as
+      # a block - is simply executed in the context of a fresh {Quick::Sampler::DSL}
+      # instance (where available syntax can be found).
+      #
+      # @example Compile a sampler
+      #   chaos = Quick::Sampler.compile description: "a bit of everything" do
+      #     one_of_weighted integer => 5,
+      #                     boolean => 1,
+      #                     pick_from(-10.0..10.0) => 10,
+      #                     string(:alnum) => 15,
+      #                     feed { Faker::Internet.email } => 3
+      #   end
       #
       # @param [String] description sampler description which
       #   will be returned by `#inspect` as well as `#description`

@@ -2,7 +2,28 @@ require "delegate"
 
 module Quick
   module Sampler
-    # A sampler base class, delegating most work to the underlying lazy enumerator
+    # A sampler base class, delegating most work to the underlying lazy enumerator.
+    #
+    # ### Readable #inspect
+    #
+    # One superficial extra that {Sampler::Base} provides is a description attribute
+    # which is returned by `#inspect`. This can help keep test output readable.
+    #
+    # ### Shrinking
+    #
+    # Sampler::Base also provides an {#shrink api for shrinking} failed inputs.
+    #
+    # From {http://stackoverflow.com/a/16970029/538534 stackoverflow discussion}
+    # of shrinking (follow the link for an example) in the original QuickCheck:
+    #
+    # > When QuickCheck finds an input that violates a property, it will first
+    # try to find smaller inputs that also violate the property, in order to
+    # give the developer a better message about the nature of the failure.
+    #
+    # > What it means to be „small“ of course depends on the datatype in
+    # question; to QuickCheck it is anything that comes out from from the
+    # shrink function.
+    #
     class Base < DelegateClass(Enumerator::Lazy)
       attr_accessor :description
 
@@ -24,9 +45,19 @@ module Quick
       end
 
       # A very preliminary API for QuickCheck-like input shrinking.
-      # A sampler is resposible for shrinking its failed samples.
+      # A sampler is responsible for shrinking its failed samples.
       #
-      # @todo describe shrinking, its rationale, provide a code example
+      # @example Detecting and then shrinking failing examples:
+      #
+      #   # Generate random input data
+      #   all_inputs = sampler.first(100)
+      #
+      #   # Find failures (by rejecting inputs satisfying the property)
+      #   failed_inputs = all_inputs.reject{ |input| property(input) }
+      #
+      #   # Shrink failed inputs, continue shrinking as long as property does not hold
+      #   shrunk_inputs = sampler.shrink(failed_inputs) {|input| !property(input)}
+      #
       #
       # @param [Enumerable] samples input samples that failed the preoperty
       #

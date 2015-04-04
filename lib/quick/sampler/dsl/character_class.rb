@@ -1,5 +1,6 @@
 module Quick
   module Sampler
+    #@!visibility private
     module DSL::CharacterClass
       class << self
 
