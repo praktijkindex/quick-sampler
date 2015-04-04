@@ -3,10 +3,18 @@
 Composable samplers of data: describe your randomness and watch it blend.
 
 Quick Sampler is DSL for describing and sampling random data influenced by
-Haskell/Erlang's QuickCheck generators by John Hughes et al, rantly gem by
-Howard Yeh, theft gem by Shawn Anderson, Jessica Kerr's generatron gem, her
-*Generative Testing for Better Code* talk and the rest of the cause-and-effect
-chain all the way to big bang.
+Haskell/Erlang's [QuickCheck][1] generators by Koen Claessen and John Hughes, 
+[rantly][2] gem by Howard Yeh, [theft][3] gem by Shawn Anderson, Jessica Kerr's 
+[generatron][4] gem, her [Property-Based Testing for Better Code talk][5] and 
+the rest of the cause-and-effect chain [all the way][6] to [big bang][7].
+
+[1]: http://www.cse.chalmers.se/~rjmh/QuickCheck/
+[2]: https://github.com/hayeah/rantly
+[3]: https://github.com/shawn42/theft
+[4]: https://github.com/jessitron/generatron/
+[5]: http://www.windycityrails.org/videos/2014/#14
+[6]: http://en.wikipedia.org/wiki/Turtles_all_the_way_down
+[7]: http://en.wikipedia.org/wiki/Unmoved_mover
 
 ## Sampler vs Generator
 
@@ -14,11 +22,15 @@ chain all the way to big bang.
 tries to suggest an expanded understanding of what it can be used for.
 Ordinarily one would *sample* a source of randomness, but one could just as
 well *sample* some "real" data at random and pass it on, verbatim or randomly
-transmuted. The term is supposed to suggest "the way of truth" view of
+transmuted. 
+
+The term is supposed to suggest "the way of truth" view of
 unchanging reality that Parmenides described in his *On Nature* in fifth
 century BCE. To see what he meant back when Socrates was a young man - fix your
 random seed and watch your "generators" repeat themselves. Smoke that,
 Heraclitus.
+
+<img src="https://cloud.githubusercontent.com/assets/64227/6993106/512cc778-daea-11e4-82dc-01cc8ef958fa.jpg"  height="200px">
 
 ## Usage
 
@@ -33,9 +45,9 @@ pry> sampler.first(5)
 ```
 
 So, the truth is out: a sampler is a lazy enumerator (and by extension - Enumerable).
-But [will it blend?][1]
+But [will it blend?][8]
 
-[1]: https://github.com/jessitron/gerald#gerald
+[8]: https://github.com/jessitron/gerald#gerald
 
 ```irb
 pry> sampler2 = Quick::Sampler.compile { config(upper_bound: 5).string(:lower) }
@@ -52,7 +64,7 @@ Hell yeah, it blends.
 
 ### Compile
 
-The aim of "compilation" is to avoid typing / save from reading the namespaces
+The aim of "compilation" is to deliver us from typing / reading the namespaces
 in sampler definitions. Consider, for example:
 
 ```ruby
