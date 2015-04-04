@@ -3,6 +3,7 @@
 Composable samplers of data: describe your randomness and watch it blend.
 
 [![Gem Version](https://badge.fury.io/rb/quick-sampler.svg)](http://badge.fury.io/rb/quick-sampler)
+[![Build Status](https://travis-ci.org/praktijkindex/quick-sampler.svg?branch=master)](https://travis-ci.org/praktijkindex/quick-sampler)
 
 Quick Sampler is DSL for describing and sampling random data influenced by
 Haskell/Erlang's [QuickCheck][1] generators by Koen Claessen and John Hughes, 
