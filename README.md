@@ -33,7 +33,9 @@ pry> sampler.first(5)
 ```
 
 So, the truth is out: a sampler is a lazy enumerator (and by extension - Enumerable).
-But {https://github.com/jessitron/gerald#gerald will it blend?}
+But [will it blend?][1]
+
+[1]: https://github.com/jessitron/gerald#gerald
 
 ```irb
 pry> sampler2 = Quick::Sampler.compile { config(upper_bound: 5).string(:lower) }
