@@ -1,6 +1,8 @@
 require_relative "sampler/autoload"
 require "active_support/core_ext/module/delegation"
 
+# A prefix module for future Quick Sampler's sister libraries.
+# For now just look at {Quick::Sampler} itself.
 module Quick
   # A façade module with the main entry point: {.compile}
   module Sampler
@@ -8,7 +10,7 @@ module Quick
     class << self
 
       # Main entry point of Quick Sampler. Compiles a definition into a sampler. The
-      # "compilation" is only a metaphor, as definition - which is given to `copmile` as
+      # "compilation" is only a metaphor here, since definition - which is given to `compile` as
       # a block - is simply executed in the context of a fresh {Quick::Sampler::DSL}
       # instance (where available syntax can be found).
       #

@@ -1,6 +1,7 @@
 module Quick
   module Sampler
     module Shrink
+      #@!visibility private
       module Refinements
 
         refine ::Object do

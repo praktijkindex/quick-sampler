@@ -4,7 +4,9 @@ using Quick::Sampler::Shrink::Refinements
 module Quick
   module Sampler
     module Shrink
+      #@!visibility private
       module ClassMethods
+        #@!visibility private
         module While
           def while values, &block
             shrunk = Set.new
