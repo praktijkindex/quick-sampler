@@ -15,8 +15,6 @@ module Quick
     #   end
     module DSL::SimpleValues
 
-      # @!volatile
-      #
       # Degenerate constant sampler. Will probably be superseeded by
       # a cleaner smarter syntax as I get a better hang of it.
       #
