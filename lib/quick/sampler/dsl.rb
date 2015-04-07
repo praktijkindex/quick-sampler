@@ -13,7 +13,6 @@ module Quick
     # (Incidentally, {Fluidiom} instances for deeper nested sub-samplers get
     # leaked from compile at the moment)
     class DSL
-      include Quick::Sampler::Config
       include SimpleValues
       include SimpleCombinators
 
@@ -44,7 +43,7 @@ module Quick
       # @yieldreturn [<Sample>] a sampled value
       #
       def feed &block
-        Fluidiom.new(Base.new(block), config)
+        Fluidiom.new(Base.new(block))
       end
 
       private

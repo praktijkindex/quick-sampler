@@ -6,15 +6,13 @@ module Quick
     # passed to {Quick::Sampler.compile}.
     class DSL::Fluidiom < SimpleDelegator
       # SimpleDelegator so that it can unwrap the "original" sampler with `#__getobj__`
-      include Quick::Sampler::Config
 
       # @api private
       # wraps a `sampler` into a `Fluidiom` instance so it has extra methods while
       # inside the block passed to {Quick::Sampler.compile}
-      def initialize sampler, _config = {}
+      def initialize sampler
         sampler = Base.new(sampler) unless sampler.is_a? Base
         super(sampler)
-        config.merge! _config
       end
 
       # @return [Quick::Sampler]
@@ -24,9 +22,9 @@ module Quick
       end
 
       # @return [Quick::Sampler]
-      #   wrapped sampler that starts out with the same config as this one
+      #   a new fluidiom-wrapped sampler
       def spawn sampler
-        self.class.new(sampler, config)
+        self.class.new(sampler)
       end
 
       # spawn a filtering sampler
