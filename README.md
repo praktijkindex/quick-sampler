@@ -53,7 +53,7 @@ But [will it blend?][8]
 [8]: https://github.com/jessitron/gerald#gerald
 
 ```irb
-pry> sampler2 = Quick::Sampler.compile { config(upper_bound: 5).string(:lower) }
+pry> sampler2 = Quick::Sampler.compile { string(:lower, size: 3..5) }
 => #<Enumerator::Lazy: #<Enumerator: #<Enumerator::Generator:0x007f295fd88058>:each>>
 pry> sampler2.zip(sampler).first(5).to_h
 => {"bjm"=>-4027257104748747508,
@@ -87,15 +87,6 @@ Generators.one_of_weighted Generators.integer => 10,
                            Generators.boolean => 1,
                            Generators.vector_of(5, Generators.integer) => 5
 ```
-
-### Sampler configuration
-
-Some sampling parameters can be passed as arguments to a sampler function (like
-character class `:lower` in the example above). Others - that affect multiple
-sub-samplers in a definition - may be injected with a call to `config(...)` (like
-`upper_bound` above).
-
-(**Rosetta stone:** `upper_bound` is what in Haskell QuickCheck is known as `size`)
 
 ### Sampler composability
 

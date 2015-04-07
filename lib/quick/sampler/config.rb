@@ -9,7 +9,6 @@ module Quick
 
       included do
         config_accessor(:max_iterations) { 1000 }
-        config_accessor(:upper_bound) { 25 }
       end
 
       def config options = :none_given

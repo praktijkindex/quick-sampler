@@ -45,9 +45,6 @@ module Quick
 
       # Sampler of uniform arrays
       #
-      # This sampler honors `upper_bound` config variable and samples Arrays of up to
-      # that many elements.
-      #
       # **Rosetta stone** the single argument version corresponds to QuickCheck's `listOf`.
       # Passing `non_empty: true` turns it into QuickCheck's `listOf1`.
       #
@@ -57,9 +54,8 @@ module Quick
       #   a sampler to sample array elements from
       # @param [Boolean] non_empty
       #   pass true to never produce empty arrays
-      def list_of sampler, non_empty: false
-        lower_bound = non_empty ? 1 : 0
-        feed { sampler.first(rand(lower_bound..upper_bound)) }
+      def list_of sampler, size: 1..10
+        send_to(sampler, :first, size)
       end
 
       # Sampler of uniform fixed length arrays

@@ -85,7 +85,7 @@ module Quick
       # @todo document character classes
       # @param [Integer, Range, Quick::Sampler<Integer>] size:
       #   Length of the string to generate
-      def string *classes, size: pick_from(1..10)
+      def string *classes, size: 1..10
         classes = [:printable] if classes.empty?
         repertoire = DSL::CharacterClass.expand(*classes)
         size = pick_from(size) if Range === size
