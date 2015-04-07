@@ -75,19 +75,21 @@ module Quick
         pick_from([true, false])
       end
 
-      # This sampler honors `upper_bound` config variable.
-      #
-      # The sampler will produce strings of random (between 0 and `upper_bound`) length
-      # made up of characters belonging to supplied named classes.
+      # The sampler will produce strings of whose length is controlled by
+      # `size:` argument made up of characters belonging to supplied named
+      # classes.
       #
       # @returns [Quick::Sampler<String>] random `String` sampler
-      # @param [Array<Symbol>] classes
+      # @param [Array<Symbol>] *classes
       #   Character classes to pick from.
       # @todo document character classes
-      def string *classes
+      # @param [Integer, Range, Quick::Sampler<Integer>] size:
+      #   Length of the string to generate
+      def string *classes, size: pick_from(1..10)
         classes = [:printable] if classes.empty?
         repertoire = DSL::CharacterClass.expand(*classes)
-        feed { repertoire.sample(rand(upper_bound)).join }
+        size = pick_from(size) if Range === size
+        send_to( send_to(repertoire, :sample, size), :join )
       end
 
     end
