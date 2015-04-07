@@ -124,6 +124,16 @@ module Quick
         }
       end
 
+      # Arbitrary object sampler.
+      #
+      # @param [Class, Quick::Sampler<Class>] the_class
+      #   a class of the object to create (or a sampler producing classes)
+      # @param [*Anything] *args
+      #   arguments to pass to the constructor (may contain samplers)
+      def object_like the_class, *args
+        send_to(the_class, :new, *args)
+      end
+
       private
 
       def recursive_sample value
