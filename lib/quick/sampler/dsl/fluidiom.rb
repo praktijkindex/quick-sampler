@@ -31,9 +31,8 @@ module Quick
 
       # spawn a filtering sampler
       #
-      # The produced sampler honors the config variable `max_iterations` and stops
-      # iterating when that many original values are tested.
-      #
+      # @param [Integer] max_iterations
+      #   try at most this many values before giving up
       # @return [Quick::Sampler]
       #   a sampler that passes through only samples that satisfy the
       #   predicate given as block
@@ -41,7 +40,7 @@ module Quick
       #   a sampled value to be tested
       # @yieldreturn [Boolean]
       #   `true` to pass the value through
-      def such_that &predicate
+      def such_that max_iterations: 1000, &predicate
         spawn(unwrap.take(max_iterations).select(&predicate))
       end
 

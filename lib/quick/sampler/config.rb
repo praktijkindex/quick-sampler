@@ -7,10 +7,6 @@ module Quick
       extend ActiveSupport::Concern
       include ActiveSupport::Configurable
 
-      included do
-        config_accessor(:max_iterations) { 1000 }
-      end
-
       def config options = :none_given
         if options == :none_given
           super()
