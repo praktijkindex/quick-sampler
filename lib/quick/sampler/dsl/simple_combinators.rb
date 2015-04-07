@@ -45,29 +45,15 @@ module Quick
 
       # Sampler of uniform arrays
       #
-      # **Rosetta stone** the single argument version corresponds to QuickCheck's `listOf`.
-      # Passing `non_empty: true` turns it into QuickCheck's `listOf1`.
-      #
       # @return [Quick::Sampler]
       #   a sampler that produces arrays of values sampled from its argument
       # @param [Quick::Sampler] sampler
       #   a sampler to sample array elements from
+      # @param [Integer, Range, Quick::Sampler<Intger>] size
+      #   value to use as, range to pick from or sampler to sample from the list size
       def list_of sampler, size: 1..10
+        size = pick_from(size) if Range === size
         send_to(sampler, :first, size)
-      end
-
-      # Sampler of uniform fixed size arrays
-      #
-      # **Rosetta stone** this sampler corresponds to QuickCheck's `vectorOf`.
-      #
-      # @return [Quick::Sampler]
-      #   a sampler that produces arrays of `size` of values sampled from `sampler`
-      # @param [Integer] size
-      #   sample array size
-      # @param [Quick::Sampler] sampler
-      #   a sampler to sample array elements from
-      def vector_of size, sampler
-        feed { sampler.take(size).force }
       end
 
       # Sampler of arbitrary nested structures made up of `Array`s, `Hash`es, `Quick::Sampler`s and
