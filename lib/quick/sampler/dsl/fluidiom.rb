@@ -35,7 +35,7 @@ module Quick
       # iterating when that many original values are tested.
       #
       # @return [Quick::Sampler]
-      #   a sampler that filter through only samples that satisfy the
+      #   a sampler that passes through only samples that satisfy the
       #   predicate given as block
       # @yieldparam [Anything] sample
       #   a sampled value to be tested
@@ -43,6 +43,21 @@ module Quick
       #   `true` to pass the value through
       def such_that &predicate
         spawn(unwrap.take(max_iterations).select(&predicate))
+      end
+
+      # spawn a mapping sampler
+      #
+      # The produced sampler will yield each original sample to the block and return block
+      # result instead.
+      #
+      # @return [Quick::Sampler]
+      #   a sampler that maps each original sample through the block
+      # @yieldparam [Anything] sample
+      #   the original sample
+      # @yieldreturn [Anything]
+      #   the mapped sample to return
+      def map &block
+        spawn(unwrap.map(&block))
       end
     end
   end
