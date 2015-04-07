@@ -15,8 +15,8 @@ module Quick
         case source
         when Range
           feed { rand(source) }
-        when Array
-          feed { source.sample }
+        else
+          feed { source.to_a.sample }
         end
       end
 
