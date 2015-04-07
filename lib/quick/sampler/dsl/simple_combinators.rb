@@ -58,18 +58,18 @@ module Quick
         send_to(sampler, :first, size)
       end
 
-      # Sampler of uniform fixed length arrays
+      # Sampler of uniform fixed size arrays
       #
       # **Rosetta stone** this sampler corresponds to QuickCheck's `vectorOf`.
       #
       # @return [Quick::Sampler]
-      #   a sampler that produces arrays of `length` of values sampled from `sampler`
-      # @param [Integer] length
-      #   sample array length
+      #   a sampler that produces arrays of `size` of values sampled from `sampler`
+      # @param [Integer] size
+      #   sample array size
       # @param [Quick::Sampler] sampler
       #   a sampler to sample array elements from
-      def vector_of length, sampler
-        feed { sampler.take(length).force }
+      def vector_of size, sampler
+        feed { sampler.take(size).force }
       end
 
       # Sampler of arbitrary nested structures made up of `Array`s, `Hash`es, `Quick::Sampler`s and
