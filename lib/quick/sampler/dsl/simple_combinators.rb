@@ -52,8 +52,17 @@ module Quick
       # @param [Integer, Range, Quick::Sampler<Intger>] size
       #   value to use as, range to pick from or sampler to sample from the list size
       def list_of sampler, size: 1..10
-        size = pick_from(size) if Range === size
-        send_to(sampler, :first, size)
+        size = case size
+               when Quick::Sampler
+                 size
+               when Range
+                 pick_from(size)
+               when Numeric
+                 const(size.to_i)
+               else
+                 raise "Cant use #{size.inspect} as size"
+               end
+        feed { sampler.first(size.next) }
       end
 
       # Sampler of arbitrary nested structures made up of `Array`s, `Hash`es, `Quick::Sampler`s and
