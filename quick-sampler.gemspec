@@ -26,5 +26,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "yard", "~> 0.8.7"
   spec.add_development_dependency "redcarpet", "~> 3.2"
 
-  spec.add_runtime_dependency "activesupport", "~> 4.2"
+  spec.add_runtime_dependency "activesupport", "~> 4.0"
 end
