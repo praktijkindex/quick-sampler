@@ -52,8 +52,6 @@ module Quick
       #   a sampler that produces arrays of values sampled from its argument
       # @param [Quick::Sampler] sampler
       #   a sampler to sample array elements from
-      # @param [Boolean] non_empty
-      #   pass true to never produce empty arrays
       def list_of sampler, size: 1..10
         send_to(sampler, :first, size)
       end
