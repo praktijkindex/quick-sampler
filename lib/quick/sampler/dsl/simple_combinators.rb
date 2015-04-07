@@ -87,6 +87,15 @@ module Quick
         feed { args.map { |arg| recursive_sample(arg) } }
       end
 
+      # Sampler of hashe's that in turn may contain `Array`s, `Hash`es and `Quick::Sampler`s.
+      # @param [Hash] pattern
+      #   a hash that will be used as a template for samples
+      # @return [Quick::Sampler<Hash>]
+      #   a recursive sampler of hashes
+      def hash_like template
+        send_to list_like(template), :first
+      end
+
       # Sampler of arbitrary message send ("method call") results
       #
       # @overload send_to recipient, message, *args
