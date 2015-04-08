@@ -79,7 +79,7 @@ module Quick
         case source
         when Enumerator::Lazy
           source
-        when Enumerator
+        when Enumerable
           source.lazy
         when ->(i) { i.respond_to? :call }
           Enumerator.new do |recipient|
