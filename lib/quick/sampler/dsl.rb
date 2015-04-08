@@ -35,15 +35,16 @@ module Quick
         "Quick Sampler DSL"
       end
 
-      # Wraps a block into a lazy enumerator which will become sampler.
+      # Sample an enumerable or block
       #
-      # I haven't decided yet if this is a private implementation detail
-      # or a powerful albeit confusing DSL verb
+      # The block is ignored if `enum` parameter isn't `nil`
       #
+      # @param [Enumerable] enum
+      #   an enumerable to sample values from
       # @yieldreturn [<Sample>] a sampled value
-      #
-      def feed &block
-        Fluidiom.new(Base.new(block))
+      def feed enum = nil, &block
+        enum ||= block if block_given?
+        Fluidiom.new(Base.new(enum))
       end
 
       private
