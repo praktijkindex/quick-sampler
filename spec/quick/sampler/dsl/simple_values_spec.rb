@@ -32,4 +32,26 @@ describe Quick::Sampler::DSL do
       it { is_expected.to all match /^[a-z]{1,10}$/ }
     end
   end
+
+  describe "#probability" do
+    subject(:samples) { dsl.probability.first(5) }
+    it { is_expected.to all (be >= 0.0).and be <= 1.0 }
+  end
+
+  describe "#weighted_truth" do
+    describe "improbable truth" do
+      subject(:samples) { dsl.weighted_truth(0.0).first(5) }
+      it { is_expected.to all be false }
+    end
+
+    describe "certain truth" do
+      subject(:samples) { dsl.weighted_truth(1.0).first(5) }
+      it { is_expected.to all be true }
+    end
+
+    describe "maybe" do
+      subject(:samples) { dsl.weighted_truth(0.5).first(5) }
+      it { is_expected.to all be(true).or be(false) }
+    end
+  end
 end

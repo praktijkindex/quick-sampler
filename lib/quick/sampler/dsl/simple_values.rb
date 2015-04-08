@@ -92,6 +92,24 @@ module Quick
         send_to( send_to(repertoire, :sample, size), :join )
       end
 
+      # "Probability" sampler
+      #
+      # @return [Quick::Sampler<Float>]
+      #   a sampler emitting a float in range `0.0..1.0`
+      def probability
+        pick_from(0..1.0)
+      end
+
+      # Weighted truth sampler
+      #
+      # @param [Float] weight
+      #   probably of emitting `true`
+      # @return [Quick::Sampler<Boolean>]
+      #   a sampler emitting `true` with probability `weight` or false with probability `(1.0 - weight)`
+      def weighted_truth weight
+        one_of_weighted true => weight, false => (1 - weight)
+      end
+
     end
   end
 end
