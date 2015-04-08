@@ -32,8 +32,12 @@ module Quick
       def one_of_weighted expression_weights
         total_weight, expressions = expression_weights
           .reduce([0, {}]) { |(total_weight, expressions), (expression, weight)|
-            total_weight += weight
-            [total_weight, expressions.merge(total_weight => expression)]
+            if weight > 0
+              total_weight += weight
+              [total_weight, expressions.merge(total_weight => expression)]
+            else
+              [total_weight, expressions]
+            end
           }
 
         feed {
@@ -121,6 +125,36 @@ module Quick
       #   arguments to pass to the constructor (may contain samplers)
       def object_like the_class, *args
         send_to(the_class, :new, *args)
+      end
+
+      # Custom sampler combinator
+      #
+      # `combine` allows to implement a custom combination of samplers: the
+      # method expects individual samplers as arguments and the combination
+      # implementation as a block. The resulting sampler will sample each of
+      # the supplied sub-samplers, pass the sampled values to the block and emit
+      # block result as combined sample.
+      #
+      # @param [*Quick::Sampler] *samplers
+      #   samplers to combine
+      # @return [Quick::Sampler]
+      #   a combination sampler
+      # @yieldparam [*Anything] samples
+      #   sampled values from each of the combined samplers
+      # @yieldreturn [Anything]
+      #   combined sampled value
+      def combine *samplers, &block
+        list_like(*samplers).map(&block)
+      end
+
+      # Sampler of merged hashes
+      #
+      # @param [Hash, *Quick::Sampler<Hash>] *samplers
+      #   `Hash`es or samplers emitting `Hash` values to merge
+      # @return [Quick::Sampler<Hash>]
+      #   a sampler emitting merged hash
+      def merge *samplers
+        combine(*samplers) { |hashes| hashes.reduce(:merge) }
       end
 
       private
